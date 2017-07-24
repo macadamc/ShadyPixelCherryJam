@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 695dc086099a99d46aeec3d3d1e6d0ba, type: 3}
+  m_Name: SlimeEggState
+  m_EditorClassIdentifier: 
+  actions:
+  - {fileID: 11400000, guid: d4c25ea93986e9743b9c9fe6934e5d6d, type: 2}
+  transitions:
+  - decision: {fileID: 11400000, guid: 7e534d73e2f6c5f4099c5660b6c24d70, type: 2}
+    trueState: {fileID: 11400000, guid: c71e31da40d2ab9488bf20bd313f8c48, type: 2}
+    falseState: {fileID: 0}

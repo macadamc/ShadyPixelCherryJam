@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Monster : MonoBehaviour {
+public class Monster : StateMachine {
 
     [System.Serializable]
     public class Info
@@ -11,6 +11,8 @@ public class Monster : MonoBehaviour {
         public string monsterName;
         public List<string> traits;
         public bool hatched;
+        public string currentState;
+        public string currentAnimController;
 
         [Range(0f, 100f)]
         public float hunger = 75f;
@@ -75,6 +77,9 @@ public class Monster : MonoBehaviour {
         Info monsterInfo = GameStateManager.instance.loadedSave.monsterInfo;
         monsterInfo.age += timetoUpdate;
 
+        if(currentState!=null)
+            monsterInfo.currentState = currentState.name;
+
         float newUpdateTime = timetoUpdate;
 
         if (monsterInfo.hatched == false)
@@ -124,4 +129,5 @@ public class Monster : MonoBehaviour {
             monsterInfo.traits.Remove(trait);
         }
     }
+
 }

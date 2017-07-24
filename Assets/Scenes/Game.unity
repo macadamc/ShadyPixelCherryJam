@@ -242,6 +242,48 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &629224987
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4038233143974654, guid: 9764d521a2ce1384eaa7f17279f1c2d2, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 399
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038233143974654, guid: 9764d521a2ce1384eaa7f17279f1c2d2, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 249.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038233143974654, guid: 9764d521a2ce1384eaa7f17279f1c2d2, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038233143974654, guid: 9764d521a2ce1384eaa7f17279f1c2d2, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038233143974654, guid: 9764d521a2ce1384eaa7f17279f1c2d2, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038233143974654, guid: 9764d521a2ce1384eaa7f17279f1c2d2, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038233143974654, guid: 9764d521a2ce1384eaa7f17279f1c2d2, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4038233143974654, guid: 9764d521a2ce1384eaa7f17279f1c2d2, type: 2}
+      propertyPath: m_RootOrder
+      value: 4
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: 9764d521a2ce1384eaa7f17279f1c2d2, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &1239958406
 GameObject:
   m_ObjectHideFlags: 0
@@ -295,6 +337,7 @@ GameObject:
   - component: {fileID: 1984053036}
   - component: {fileID: 1984053035}
   - component: {fileID: 1984053037}
+  - component: {fileID: 1984053038}
   m_Layer: 0
   m_Name: Monster
   m_TagString: Untagged
@@ -313,6 +356,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 34927a13680635f49908743f21853a34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startState: {fileID: 11400000, guid: 5b9e95d12a82de34e81a90a8809aad40, type: 2}
+  currentState: {fileID: 0}
+  lastState: {fileID: 0}
 --- !u!4 &1984053036
 Transform:
   m_ObjectHideFlags: 0
@@ -361,3 +407,20 @@ SpriteRenderer:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
+--- !u!95 &1984053038
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1984053034}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 1524266624499a842bd8a8cdc5fcf58f, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1

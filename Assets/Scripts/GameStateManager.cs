@@ -5,6 +5,7 @@ using UnityEngine;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 using UnityEngine.SceneManagement;
+using UnityEditorInternal;
 
 public class GameStateManager : MonoBehaviour {
 
@@ -24,6 +25,7 @@ public class GameStateManager : MonoBehaviour {
         }
 
         LoadGame(Application.persistentDataPath + "/SaveFile.dat");
+        Debug.Log(Application.persistentDataPath);
         
 
     }
@@ -127,14 +129,27 @@ public class GameStateManager : MonoBehaviour {
         Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene.name == "Game")
         {
+            /*
             TextBoxManager.instance.Display(string.Format("Welcome Back... lets see how {0} is doing, shall we?", loadedSave.monsterInfo.monsterName));
             TextBoxManager.instance.Display("Oh yeah!! i almost forgot....");
             TextBoxManager.instance.Display("if you move the 'slime' sprites around in the editor there positions are automaticly saved!! Woo!");
+            */
+
 
             PlaceableObject.CreatePlaceableObjectsFromLoadedSave();
 
 
             PlaceableObject.Create("TestPlaceable", new S_Vector2(-5, 0), false); // this object is never saved beacuse it is never added to the dungeon!
+
+            Monster monster = FindObjectOfType<Monster>();
+            if(monster != null)
+            {
+                if (loadedSave.monsterInfo.currentState != null && loadedSave.monsterInfo.currentState != "")
+                    monster.SetCurrentState(Resources.Load("Data/States/" + loadedSave.monsterInfo.currentState) as State);
+
+                if (loadedSave.monsterInfo.currentAnimController != null && loadedSave.monsterInfo.currentAnimController != "")
+                    monster.GetComponent<Animator>().runtimeAnimatorController = Resources.Load("Data/AnimatorControllers/" + loadedSave.monsterInfo.currentState) as RuntimeAnimatorController;
+            }
 
             if (!loadedSave.hasMonster)
                 OpenEggShop();

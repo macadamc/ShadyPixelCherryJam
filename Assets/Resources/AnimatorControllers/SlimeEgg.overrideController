@@ -1,0 +1,10 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_Name: SlimeEgg
+  m_Controller: {fileID: 9100000, guid: 8ad6238e82038ea4c9ed57271bd58475, type: 2}
+  m_Clips: []

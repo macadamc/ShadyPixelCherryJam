@@ -35,15 +35,6 @@ public class PlaceableObject : MonoBehaviour {
         return behaviour;
     }
 
-    //remove this placeable from the save file and destroy its gameobject.
-    public static void Destroy(PlaceableObject obj)
-    {
-        if (GameStateManager.instance.loadedSave.dungeonObjects.Contains(obj.info))
-            GameStateManager.instance.loadedSave.dungeonObjects.Remove(obj.info);
-
-        Destroy(obj.gameObject);
-    }
-
     //when the game is loaded this loops through all the objects in the savefile and creates there gameobjects.
     public static void CreatePlaceableObjectsFromLoadedSave()
     {
@@ -78,6 +69,12 @@ public class PlaceableObject : MonoBehaviour {
     public void LateUpdate()
     {
         UpdateSaveInfo();
+    }
+
+    void OnDestroy()
+    {
+        if (GameStateManager.instance.loadedSave.dungeonObjects.Contains(info))
+            GameStateManager.instance.loadedSave.dungeonObjects.Remove(info);
     }
 
 }

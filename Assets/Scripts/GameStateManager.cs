@@ -131,6 +131,10 @@ public class GameStateManager : MonoBehaviour {
             if (!loadedSave.hasMonster)
                 //OpenEggShop();
                 StartCoroutine(OpenEggShopWithSomeText());
+            else
+            {
+                TextBoxManager.instance.Display("Welcome Back.");
+            }
         }
     }
 
@@ -142,13 +146,9 @@ public class GameStateManager : MonoBehaviour {
     IEnumerator OpenEggShopWithSomeText()
     {
         TextBoxManager.instance.Display("Lets Go Get our First Egg!!");
-        yield return new WaitForSeconds(0);// we need to wait until the next frame for IsRunning to be set..
-
-        while(TextBoxManager.instance.isRunning)
-        {
-            yield return new WaitForSeconds(0);
-        }
-
+        yield return null;
+        //yield return new WaitForSeconds(0);// we need to wait until the NEXT frame for IsRunning to be set..
+        yield return new WaitWhile(() => TextBoxManager.instance.isRunning);
         yield return new WaitForSeconds(.5f);
         SceneManager.LoadSceneAsync("PickEgg", LoadSceneMode.Additive);
     }

@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d2fcc733f8f98d141ba25522488d815b, type: 3}
+  m_Name: Lazy
+  m_EditorClassIdentifier: 
+  description: Doesn't like to do much.
+  flatStrMod: 0
+  flatDefMod: 0
+  flatSpdMod: -0.05
+  flatLuckMod: 0
+  flatNegMoodThresholdMod: 5
+  growthStrMod: 0
+  growthDefMod: 0.1
+  growthSpdMod: -0.05
+  growthLuckMod: 0
+  hungerMod: -0.1
+  energyMod: -0.1
+  moodMod: 0

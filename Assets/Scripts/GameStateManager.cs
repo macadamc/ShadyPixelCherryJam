@@ -124,25 +124,32 @@ public class GameStateManager : MonoBehaviour {
         if (mode == LoadSceneMode.Additive)
             return;
 
-        Scene currentScene = SceneManager.GetActiveScene();
-        if (currentScene.name == "Game")
+        if (scene.name == "Game")
         {
-            TextBoxManager.instance.Display(string.Format("Welcome Back... lets see how {0} is doing, shall we?", loadedSave.monsterInfo.monsterName));
-            TextBoxManager.instance.Display("Oh yeah!! i almost forgot....");
-            TextBoxManager.instance.Display("if you move the 'slime' sprites around in the editor there positions are automaticly saved!! Woo!");
-
             PlaceableObject.CreatePlaceableObjectsFromLoadedSave();
 
-
-            PlaceableObject.Create("TestPlaceable", new S_Vector2(-5, 0), false); // this object is never saved beacuse it is never added to the dungeon!
-
             if (!loadedSave.hasMonster)
-                OpenEggShop();
+                //OpenEggShop();
+                StartCoroutine(OpenEggShopWithSomeText());
         }
     }
 
     void OpenEggShop()
     {
         SceneManager.LoadSceneAsync("PickEgg",LoadSceneMode.Additive);
+    }
+
+    IEnumerator OpenEggShopWithSomeText()
+    {
+        TextBoxManager.instance.Display("Lets Go Get our First Egg!!");
+        yield return new WaitForSeconds(0);// we need to wait until the next frame for IsRunning to be set..
+
+        while(TextBoxManager.instance.isRunning)
+        {
+            yield return new WaitForSeconds(0);
+        }
+
+        yield return new WaitForSeconds(.5f);
+        SceneManager.LoadSceneAsync("PickEgg", LoadSceneMode.Additive);
     }
 }

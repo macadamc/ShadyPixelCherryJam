@@ -1,7 +1,6 @@
 ﻿using UnityEngine;
 
 public class PlaceableObject : MonoBehaviour {
-
     // the class that gets saved to represent this object.
     [System.Serializable]
     public class Info
@@ -16,7 +15,7 @@ public class PlaceableObject : MonoBehaviour {
         }
     }
 
-    //create a completely new placeable object and optionaly add it to the dungeon.
+    //create a completely new placeable object and optionaly add it to the SaveFile. (think session state basicly, but its not realy tracked at all i guess..)
     public static PlaceableObject Create(string name, S_Vector2 pos, bool addToDungeon= true)
     {
         Info info = new Info(name, pos);
@@ -36,6 +35,16 @@ public class PlaceableObject : MonoBehaviour {
         return behaviour;
     }
 
+    //remove this placeable from the save file and destroy its gameobject.
+    public static void Destroy(PlaceableObject obj)
+    {
+        if (GameStateManager.instance.loadedSave.dungeonObjects.Contains(obj.info))
+            GameStateManager.instance.loadedSave.dungeonObjects.Remove(obj.info);
+
+        Destroy(obj.gameObject);
+    }
+
+    //when the game is loaded this loops through all the objects in the savefile and creates there gameobjects.
     public static void CreatePlaceableObjectsFromLoadedSave()
     {
         foreach (Info info in GameStateManager.instance.loadedSave.dungeonObjects)

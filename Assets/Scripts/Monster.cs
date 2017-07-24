@@ -55,9 +55,12 @@ public class Monster : MonoBehaviour {
         }
     }
 
+    public Info info;
+
     void Awake()
     {
         TimeManager.tm.updateObjects += UpdateMonster;
+        info = GameStateManager.instance.loadedSave.monsterInfo;
     }
 
     void OnDisable()
@@ -72,12 +75,11 @@ public class Monster : MonoBehaviour {
 
     public void UpdateMonster(float timetoUpdate)
     {
-        Info monsterInfo = GameStateManager.instance.loadedSave.monsterInfo;
-        monsterInfo.age += timetoUpdate;
+        info.age += timetoUpdate;
 
         float newUpdateTime = timetoUpdate;
 
-        if (monsterInfo.hatched == false)
+        if (info.hatched == false)
             return;
 
         if (timetoUpdate > 1f)
@@ -86,21 +88,21 @@ public class Monster : MonoBehaviour {
 
             for (int i = 0; i < newUpdateTime; i++)
             {
-                monsterInfo.hunger -= monsterInfo.hungerMod;
-                monsterInfo.energy -= monsterInfo.energyMod;
-                if (monsterInfo.hunger < monsterInfo.statNegMoodThreshold || monsterInfo.energy < monsterInfo.statNegMoodThreshold)
+                info.hunger -= info.hungerMod;
+                info.energy -= info.energyMod;
+                if (info.hunger < info.statNegMoodThreshold || info.energy < info.statNegMoodThreshold)
                 {
-                    monsterInfo.mood -= monsterInfo.moodMod;
+                    info.mood -= info.moodMod;
                 }
             }
         }
         else
         {
-            monsterInfo.hunger -= timetoUpdate * monsterInfo.hungerMod;
-            monsterInfo.energy -= timetoUpdate * monsterInfo.energyMod;
-            if (monsterInfo.hunger < monsterInfo.statNegMoodThreshold || monsterInfo.energy < monsterInfo.statNegMoodThreshold)
+            info.hunger -= timetoUpdate * info.hungerMod;
+            info.energy -= timetoUpdate * info.energyMod;
+            if (info.hunger < info.statNegMoodThreshold || info.energy < info.statNegMoodThreshold)
             {
-                monsterInfo.mood -= timetoUpdate * monsterInfo.moodMod;
+                info.mood -= timetoUpdate * info.moodMod;
             }
         }
     }
@@ -109,19 +111,17 @@ public class Monster : MonoBehaviour {
     {
         //MonsterTrait monsterTrait = Resources.Load("/MonsterTraits" + traitName) as MonsterTrait;
 
-        Info monsterInfo = GameStateManager.instance.loadedSave.monsterInfo;
-        if (monsterInfo.traits.Contains(traitName) == false)
+        if (info.traits.Contains(traitName) == false)
         {
-            monsterInfo.traits.Add(traitName);
+            info.traits.Add(traitName);
         }
     }
 
     public void RemoveTrait(string trait)
     {
-        Info monsterInfo = GameStateManager.instance.loadedSave.monsterInfo;
-        if (monsterInfo.traits.Contains(trait))
+        if (info.traits.Contains(trait))
         {
-            monsterInfo.traits.Remove(trait);
+            info.traits.Remove(trait);
         }
     }
 }

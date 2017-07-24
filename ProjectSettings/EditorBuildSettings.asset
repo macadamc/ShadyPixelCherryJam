@@ -8,10 +8,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TitleScreen.unity
   - enabled: 1
-    path: Assets/Scenes/OptionsMenu.unity
+    path: Assets/Scenes/Menus/OptionsMenu.unity
+  - enabled: 1
+    path: Assets/Scenes/Menus/PickEgg.unity
   - enabled: 1
     path: Assets/Scenes/Game.unity
   - enabled: 1
-    path: Assets/Scenes/PickEgg.unity
+    path: Assets/Scenes/Menus/Shop.unity
   - enabled: 1
     path: Assets/Scenes/TextBox.unity
+  - enabled: 0
+    path: Assets/Scenes/OptionsMenu.unity
+  - enabled: 0
+    path: Assets/Scenes/PickEgg.unity

@@ -7,6 +7,8 @@ public class MonsterType : ScriptableObject
 {
     public List<MonsterTrait> traits;
 
+    public State eggState;
+
     public float str;
     public float def;
     public float spd;

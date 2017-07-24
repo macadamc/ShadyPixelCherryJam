@@ -80,28 +80,28 @@ public class GameStateManager : MonoBehaviour {
 
     public void SetNewActiveMonster(MonsterType mon)
     {
-        Monster.Info info = loadedSave.monsterInfo;
         List<string> randomTrait = new List<string>();
         randomTrait.Add(mon.traits[Random.Range(0, mon.traits.Count)].name);
 
-        info = new Monster.Info(
-                                mon.str, 
-                                mon.def, 
-                                mon.spd, 
+        loadedSave.monsterInfo = new Monster.Info(
+                                mon.str,
+                                mon.def,
+                                mon.spd,
                                 mon.luck,
                                 mon.growthStrMod,
                                 mon.growthDefMod,
                                 mon.growthSpdMod,
-                                mon.growthLuckMod, 
-                                mon.hungerMod, 
-                                mon.energyMod, 
-                                mon.moodMod, 
-                                mon.statNegMoodThreshold, 
+                                mon.growthLuckMod,
+                                mon.hungerMod,
+                                mon.energyMod,
+                                mon.moodMod,
+                                mon.statNegMoodThreshold,
                                 randomTrait
                                 );
 
         loadedSave.hasMonster = true;
-        loadedSave.monsterInfo = info;
+
+        FindObjectOfType<Monster>().SetCurrentState(mon.eggState);
 
         SaveGame(Application.persistentDataPath + "/SaveFile.dat");
     }
@@ -129,17 +129,7 @@ public class GameStateManager : MonoBehaviour {
         Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene.name == "Game")
         {
-            /*
-            TextBoxManager.instance.Display(string.Format("Welcome Back... lets see how {0} is doing, shall we?", loadedSave.monsterInfo.monsterName));
-            TextBoxManager.instance.Display("Oh yeah!! i almost forgot....");
-            TextBoxManager.instance.Display("if you move the 'slime' sprites around in the editor there positions are automaticly saved!! Woo!");
-            */
-
-
             PlaceableObject.CreatePlaceableObjectsFromLoadedSave();
-
-
-            PlaceableObject.Create("TestPlaceable", new S_Vector2(-5, 0), false); // this object is never saved beacuse it is never added to the dungeon!
 
             Monster monster = FindObjectOfType<Monster>();
             if(monster != null)
@@ -149,15 +139,31 @@ public class GameStateManager : MonoBehaviour {
 
                 if (loadedSave.monsterInfo.currentAnimController != null && loadedSave.monsterInfo.currentAnimController != "")
                     monster.GetComponent<Animator>().runtimeAnimatorController = Resources.Load("Data/AnimatorControllers/" + loadedSave.monsterInfo.currentState) as RuntimeAnimatorController;
+
+                if(loadedSave.monsterInfo.hatched)
+                {
+                    Bounds bounds = GameObject.FindGameObjectWithTag("MoveBounds").GetComponent<BoxCollider2D>().bounds;
+                    float randomX = UnityEngine.Random.Range(bounds.center.x - bounds.extents.x, bounds.center.x + bounds.extents.x);
+                    float randomY = UnityEngine.Random.Range(bounds.center.y - bounds.extents.y, bounds.center.y + bounds.extents.y);
+                    Vector2 randomVector = new Vector2(randomX, randomY);
+
+                    monster.transform.position = randomVector;
+                    monster.sprite.flipX = UnityEngine.Random.value > 0.5f ? true : false;
+                }
             }
 
             if (!loadedSave.hasMonster)
-                OpenEggShop();
+                StartCoroutine(OpenEggShopCoroutine());
         }
     }
 
-    void OpenEggShop()
+    public IEnumerator OpenEggShopCoroutine ()
     {
-        SceneManager.LoadSceneAsync("PickEgg",LoadSceneMode.Additive);
+        yield return new WaitForSeconds(1);
+        TextBoxManager.instance.Display("Lets Go get our first egg!!");
+        yield return new WaitForSeconds(0.1f);
+        yield return new WaitWhile(() => TextBoxManager.instance.isRunning);
+        yield return new WaitForSeconds(.5f);
+        SceneManager.LoadSceneAsync("PickEgg", LoadSceneMode.Additive);
     }
 }

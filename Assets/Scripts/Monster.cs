@@ -5,6 +5,10 @@ using UnityEngine;
 [System.Serializable]
 public class Monster : StateMachine {
 
+    public Vector2 targetPos;
+    public SpriteRenderer sprite;
+    public Animator anim;
+
     [System.Serializable]
     public class Info
     {
@@ -57,12 +61,13 @@ public class Monster : StateMachine {
         }
     }
 
-    public Info info;
-
-    void Awake()
+    public override void Awake()
     {
+        base.Awake();
         TimeManager.tm.updateObjects += UpdateMonster;
-        info = GameStateManager.instance.loadedSave.monsterInfo;
+        targetPos = new Vector2();
+        sprite = GetComponent<SpriteRenderer>();
+        anim = GetComponent<Animator>();
     }
 
     void OnDisable()
@@ -77,14 +82,25 @@ public class Monster : StateMachine {
 
     public void UpdateMonster(float timetoUpdate)
     {
-        info.age += timetoUpdate;
+        Info monsterInfo = GameStateManager.instance.loadedSave.monsterInfo;
 
         if(currentState!=null)
+        {
             monsterInfo.currentState = currentState.name;
+
+            if (anim != null && anim.runtimeAnimatorController != null)
+                monsterInfo.currentAnimController = anim.runtimeAnimatorController.name;
+
+        }
 
         float newUpdateTime = timetoUpdate;
 
-        if (info.hatched == false)
+        if (GameStateManager.instance.loadedSave.hasMonster == false)
+            return;
+
+        monsterInfo.age += timetoUpdate;
+
+        if (monsterInfo.hatched == false)
             return;
 
         if (timetoUpdate > 1f)
@@ -93,21 +109,21 @@ public class Monster : StateMachine {
 
             for (int i = 0; i < newUpdateTime; i++)
             {
-                info.hunger -= info.hungerMod;
-                info.energy -= info.energyMod;
-                if (info.hunger < info.statNegMoodThreshold || info.energy < info.statNegMoodThreshold)
+                monsterInfo.hunger -= monsterInfo.hungerMod;
+                monsterInfo.energy -= monsterInfo.energyMod;
+                if (monsterInfo.hunger < monsterInfo.statNegMoodThreshold || monsterInfo.energy < monsterInfo.statNegMoodThreshold)
                 {
-                    info.mood -= info.moodMod;
+                    monsterInfo.mood -= monsterInfo.moodMod;
                 }
             }
         }
         else
         {
-            info.hunger -= timetoUpdate * info.hungerMod;
-            info.energy -= timetoUpdate * info.energyMod;
-            if (info.hunger < info.statNegMoodThreshold || info.energy < info.statNegMoodThreshold)
+            monsterInfo.hunger -= timetoUpdate * monsterInfo.hungerMod;
+            monsterInfo.energy -= timetoUpdate * monsterInfo.energyMod;
+            if (monsterInfo.hunger < monsterInfo.statNegMoodThreshold || monsterInfo.energy < monsterInfo.statNegMoodThreshold)
             {
-                info.mood -= timetoUpdate * info.moodMod;
+                monsterInfo.mood -= timetoUpdate * monsterInfo.moodMod;
             }
         }
     }
@@ -116,18 +132,33 @@ public class Monster : StateMachine {
     {
         //MonsterTrait monsterTrait = Resources.Load("/MonsterTraits" + traitName) as MonsterTrait;
 
-        if (info.traits.Contains(traitName) == false)
+        Info monsterInfo = GameStateManager.instance.loadedSave.monsterInfo;
+
+        if (monsterInfo.traits.Contains(traitName) == false)
         {
-            info.traits.Add(traitName);
+            monsterInfo.traits.Add(traitName);
         }
     }
 
     public void RemoveTrait(string trait)
     {
-        if (info.traits.Contains(trait))
+        Info monsterInfo = GameStateManager.instance.loadedSave.monsterInfo;
+
+        if (monsterInfo.traits.Contains(trait))
         {
-            info.traits.Remove(trait);
+            monsterInfo.traits.Remove(trait);
         }
+    }
+
+    public void MoveToTargetPosition(float speed)
+    {
+        Vector2 newPos = (targetPos - (Vector2)transform.position).normalized * speed;
+        transform.position += (Vector3)newPos * Time.deltaTime;
+
+        if (targetPos.x < transform.position.x)
+            sprite.flipX = true;
+        if (targetPos.x > transform.position.x)
+            sprite.flipX = false;
     }
 
 }

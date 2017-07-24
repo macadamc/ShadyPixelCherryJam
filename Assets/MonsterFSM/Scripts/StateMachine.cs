@@ -2,16 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class StateMachine : MonoBehaviour
 {
     public State startState;
     public State currentState;
     public State lastState;
 
-    public void Start()
+    public Monster monster;
+
+    public virtual void Awake()
     {
-        if (currentState == null)
-            SetCurrentState(startState);
+        monster = GetComponent<Monster>();
     }
 
     public void Update()
@@ -24,6 +26,9 @@ public class StateMachine : MonoBehaviour
 
     public void SetCurrentState(State state)
     {
+        if (state == null)
+            return;
+
         if(currentState != null)
         {
             currentState.EndActions(this);

@@ -7,4 +7,6 @@ AnimatorOverrideController:
   m_PrefabInternal: {fileID: 0}
   m_Name: SlimeEgg
   m_Controller: {fileID: 9100000, guid: 8ad6238e82038ea4c9ed57271bd58475, type: 2}
-  m_Clips: []
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 985d5857a0ca8174eaee16c100ed86bc, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: 8be483d5a9d112c49a8ce983b97e98f2, type: 2}

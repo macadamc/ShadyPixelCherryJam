@@ -140,7 +140,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.066176474, g: 0.066176474, b: 0.066176474, a: 0}
+  m_BackGroundColor: {r: 0.058823526, g: 0.058823526, b: 0.058823526, a: 0}
   m_NormalizedViewPortRect:
     serializedVersion: 2
     x: 0
@@ -565,8 +565,8 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 51baa82866ef78143b09d1497df323a3, type: 3}
-  m_Type: 0
+  m_Sprite: {fileID: 21300002, guid: 41206cd30e5e4654cb12005e9e834ad7, type: 3}
+  m_Type: 1
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -699,7 +699,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7c48985d8136524cb35f352a0790c1f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &1327166726
+--- !u!1001 &1463044014
 Prefab:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -737,6 +737,21 @@ Prefab:
     - target: {fileID: 4038233143974654, guid: 9764d521a2ce1384eaa7f17279f1c2d2, type: 2}
       propertyPath: m_RootOrder
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 223436733711974550, guid: 9764d521a2ce1384eaa7f17279f1c2d2,
+        type: 2}
+      propertyPath: m_SortingOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 114176075153673418, guid: 9764d521a2ce1384eaa7f17279f1c2d2,
+        type: 2}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114176075153673418, guid: 9764d521a2ce1384eaa7f17279f1c2d2,
+        type: 2}
+      propertyPath: m_RaycastTarget
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 9764d521a2ce1384eaa7f17279f1c2d2, type: 2}

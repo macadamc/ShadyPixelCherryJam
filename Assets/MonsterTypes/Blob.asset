@@ -23,7 +23,7 @@ MonoBehaviour:
   growthDefMod: 1
   growthSpdMod: 1
   growthLuckMod: 1
-  hungerMod: 0.2
-  energyMod: 0.15
+  hungerMod: 0.01
+  energyMod: 0.05
   moodMod: 0.1
   statNegMoodThreshold: 25

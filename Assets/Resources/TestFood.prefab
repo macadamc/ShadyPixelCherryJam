@@ -21,7 +21,6 @@ GameObject:
   - component: {fileID: 4286935940002488}
   - component: {fileID: 212790349912542442}
   - component: {fileID: 114723929881923816}
-  - component: {fileID: 114625846915192634}
   m_Layer: 0
   m_Name: TestFood
   m_TagString: Untagged
@@ -42,22 +41,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114625846915192634
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1035809894858024}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93019c97f4d06de449777b8645cfe9c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  energyGain: 5
-  hungerGain: 20
-  moodGain: 5
-  cost: 30
-  description: Some bland looking food that looks kinda old...
 --- !u!114 &114723929881923816
 MonoBehaviour:
   m_ObjectHideFlags: 1

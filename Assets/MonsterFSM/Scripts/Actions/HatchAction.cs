@@ -11,7 +11,8 @@ public class HatchAction : Action {
         if(GameStateManager.instance.loadedSave.monsterInfo.hatched == false)
         {
             GameStateManager.instance.loadedSave.monsterInfo.hatched = true;
-            TextBoxManager.instance.Display("The egg has hatched! Look at your new monster!");
+            TextBoxManager.instance.Display("Your monster's egg has hatched!");
+            TextBoxManager.instance.Display("Check out your new companion! ... And don't forget to take care of the little fellow!");
         }
     }
 

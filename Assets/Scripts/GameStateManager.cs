@@ -25,8 +25,7 @@ public class GameStateManager : MonoBehaviour {
         }
 
         LoadGame(Application.persistentDataPath + "/SaveFile.dat");
-        Debug.Log(Application.persistentDataPath);
-        
+
 
     }
 
@@ -129,6 +128,8 @@ public class GameStateManager : MonoBehaviour {
         Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene.name == "Game")
         {
+            SceneManager.LoadSceneAsync("GameHUD", LoadSceneMode.Additive);
+
             PlaceableObject.CreatePlaceableObjectsFromLoadedSave();
 
             Monster monster = FindObjectOfType<Monster>();
@@ -137,8 +138,8 @@ public class GameStateManager : MonoBehaviour {
                 if (loadedSave.monsterInfo.currentState != null && loadedSave.monsterInfo.currentState != "")
                     monster.SetCurrentState(Resources.Load("Data/States/" + loadedSave.monsterInfo.currentState) as State);
 
-                if (loadedSave.monsterInfo.currentAnimController != null && loadedSave.monsterInfo.currentAnimController != "")
-                    monster.GetComponent<Animator>().runtimeAnimatorController = Resources.Load("Data/AnimatorControllers/" + loadedSave.monsterInfo.currentState) as RuntimeAnimatorController;
+                if (loadedSave.monsterInfo.currentAnimController != null)
+                    monster.GetComponent<Animator>().runtimeAnimatorController = Resources.Load("AnimatorControllers/" + loadedSave.monsterInfo.currentAnimController) as RuntimeAnimatorController;
 
                 if(loadedSave.monsterInfo.hatched)
                 {
@@ -153,17 +154,34 @@ public class GameStateManager : MonoBehaviour {
             }
 
             if (!loadedSave.hasMonster)
+            {
                 StartCoroutine(OpenEggShopCoroutine());
+            }
         }
     }
 
     public IEnumerator OpenEggShopCoroutine ()
     {
-        yield return new WaitForSeconds(1);
-        TextBoxManager.instance.Display("Lets Go get our first egg!!");
+        //must yield first frame or ''GameObject.FindGameObjectWithTag("GameHUD")'' gets error
+        yield return new WaitForEndOfFrame();
+        GameObject hud = GameObject.FindGameObjectWithTag("GameHUD");
+        hud.SetActive(false);
+
+        yield return new WaitForSeconds(3f);
+        TextBoxManager.instance.Display("Hey!");
+        TextBoxManager.instance.Display("A new DUNGEON KEEPER?");
+        TextBoxManager.instance.Display("It seems like you don't have a monster yet.");
+        TextBoxManager.instance.Display("What kind of KEEPER doesn't have a monster?");
+        TextBoxManager.instance.Display("Luckily, I can help you out!");
         yield return new WaitForSeconds(0.1f);
         yield return new WaitWhile(() => TextBoxManager.instance.isRunning);
         yield return new WaitForSeconds(.5f);
+
         SceneManager.LoadSceneAsync("PickEgg", LoadSceneMode.Additive);
+        yield return new WaitForSeconds(0.1f);
+        yield return new WaitWhile(() => SceneManager.GetSceneByName("PickEgg").isLoaded);
+        yield return new WaitForSeconds(.5f);
+
+        hud.SetActive(true);
     }
 }

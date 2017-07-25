@@ -48,15 +48,16 @@ public class TransitionManager : MonoBehaviour {
     {
         if (mode == LoadSceneMode.Additive)
             return;
-        if(Time.time > 1)
-        {
-            Debug.Log("scene loaded");
-            FadeIn();
-        }
+
+        transitionImage.enabled = true;
+        transitionImage.CrossFadeAlpha(1f, 0f, true);
+        transitionImage.canvasRenderer.SetAlpha(1f);
+        Invoke("FadeIn", 0.5f);
     }
 
     void FadeIn()
     {
+        transitionImage.enabled = true;
         transitionImage.CrossFadeAlpha(1f, 0f, true);
         transitionImage.canvasRenderer.SetAlpha(1f);
         transitionImage.CrossFadeAlpha(0f, 1f, true);
@@ -64,6 +65,7 @@ public class TransitionManager : MonoBehaviour {
 
     public void Fade(float alpha, float time)
     {
+        transitionImage.enabled = true;
         Pause();
         transitionImage.CrossFadeAlpha(0f, 0f, true);
         transitionImage.canvasRenderer.SetAlpha(0.0f);
@@ -73,12 +75,13 @@ public class TransitionManager : MonoBehaviour {
     void UnPause()
     {
         PauseManager.pm.transitioning = false;
-        transitionImage.enabled = false;
+        transitionImage.gameObject.SetActive(false);
+        
     }
 
     void Pause()
     {
-        transitionImage.enabled = true;
+        transitionImage.gameObject.SetActive(true);
         PauseManager.pm.transitioning = true;
     }
 }

@@ -29,6 +29,8 @@ public class Shop : MonoBehaviour {
             item.transform.SetParent(foodPanel.transform, false);
             item.transform.localScale = Vector2.one;
             item.GetComponent<ShopItem>().item = f;
+
+            buyButton.GetComponent<Button>().onClick.AddListener(BuySelectedItem);
         }
 
         SetShopSelected();
@@ -41,7 +43,8 @@ public class Shop : MonoBehaviour {
         infoBoxText.text = selectedItem.description;
         selectBox.SetActive(true);
 
-        buyButton.interactable = true;
+        PollBuyButtonState();
+        
     }
     public void SetShopSelected()
     {
@@ -67,6 +70,23 @@ public class Shop : MonoBehaviour {
         panel.SetActive(true);
     }
 
+    public void BuySelectedItem()
+    {
+        PlaceableObject.Create(selectedItem.name, new S_Vector2(0, 0), true);
+        GameStateManager.instance.loadedSave.currency -= selectedItem.cost;
+        PollBuyButtonState();
+    }
 
+    void PollBuyButtonState()
+    {
+        if (selectedItem.cost <= GameStateManager.instance.loadedSave.currency)
+        {
+            buyButton.interactable = true;
+        }
+        else
+        {
+            buyButton.interactable = false;
+        }
+    }
 
 }

@@ -8,6 +8,7 @@ public class SaveFile {
 
     public string lastExitTime;
     public bool hasMonster;
+    public int currency;
     public Monster.Info monsterInfo;
 
     public int dungeonUpgrade;

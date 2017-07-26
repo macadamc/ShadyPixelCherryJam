@@ -30,9 +30,9 @@ public class Shop : MonoBehaviour {
             item.transform.localScale = Vector2.one;
             item.GetComponent<ShopItem>().item = f;
 
-            buyButton.GetComponent<Button>().onClick.AddListener(BuySelectedItem);
+            
         }
-
+        buyButton.GetComponent<Button>().onClick.AddListener(BuySelectedItem);
         SetShopSelected();
 	}
 
@@ -72,8 +72,8 @@ public class Shop : MonoBehaviour {
 
     public void BuySelectedItem()
     {
-        PlaceableObject.Create(selectedItem.name, new S_Vector2(0, 0), true);
         GameStateManager.instance.loadedSave.currency -= selectedItem.cost;
+        GameStateManager.instance.loadedSave.inventory.Add(selectedItem.name);
         PollBuyButtonState();
     }
 

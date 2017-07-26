@@ -6,15 +6,18 @@ public class TextBox : MonoBehaviour {
 
     GameObject textBoxGameObject;
     Text textBoxText;
+    AudioSource source;
 
     [TextArea]
     public string currentPage;
-    public int Pos;    
+    public int Pos;
+    public SoundEffect typeSfx;
 
     void Awake ()
     {
         textBoxGameObject = this.gameObject;
         textBoxText = textBoxGameObject.transform.Find("Text").gameObject.GetComponent<Text>();
+        source = GetComponent<AudioSource>();
     }
 
     public IEnumerator Tick ()
@@ -32,6 +35,8 @@ public class TextBox : MonoBehaviour {
             {
                 Pos++;
                 textBoxText.text = currentPage.Substring(0, Pos);
+
+                SoundManager.instance.PlaySoundEffect(typeSfx,source);
             }
             else if (Input.GetButton("Fire1"))
             {

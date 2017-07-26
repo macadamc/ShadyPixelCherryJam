@@ -25,3 +25,5 @@ EditorBuildSettings:
     path: Assets/Scenes/TextBox.unity
   - enabled: 1
     path: Assets/Scenes/Menus/GameHUD.unity
+  - enabled: 1
+    path: Assets/Scenes/Menus/Inventory.unity

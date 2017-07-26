@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 
 public class PlaceableObject : MonoBehaviour {
+
+    public LayerMask itemLayer;
+
     // the class that gets saved to represent this object.
     [System.Serializable]
     public class Info
@@ -25,7 +28,7 @@ public class PlaceableObject : MonoBehaviour {
             GameStateManager.instance.loadedSave.dungeonObjects.Add(info);
         }
 
-        GameObject go = Instantiate(Resources.Load(info.name)) as GameObject;
+        GameObject go = Instantiate(Resources.Load("InGameObjects/"+info.name)) as GameObject;
         go.transform.position = info.pos;
         go.name = info.name;
 
@@ -40,7 +43,7 @@ public class PlaceableObject : MonoBehaviour {
     {
         foreach (Info info in GameStateManager.instance.loadedSave.dungeonObjects)
         {
-            GameObject go = Instantiate(Resources.Load(info.name)) as GameObject;
+            GameObject go = Instantiate(Resources.Load("InGameObjects/"+info.name)) as GameObject;
             go.transform.position = info.pos;
             go.name = info.name;
 
@@ -51,10 +54,13 @@ public class PlaceableObject : MonoBehaviour {
 
     public enum Type {None, Food, Cosmetic }
 
+    public enum Placement {Floor, Wall}
+
     [HideInInspector]
     public Info info;
 
     public Type objectType;
+    public Placement placement;
 
     public virtual void UpdateSaveInfo()
     {

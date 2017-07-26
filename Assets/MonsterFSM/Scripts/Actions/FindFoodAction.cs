@@ -42,6 +42,10 @@ public class FindFoodAction : Action {
             return;
 
         curFood = foods[UnityEngine.Random.Range(0, foods.Length)];
+
+        if (curFood == null)
+            return;
+
         stateMachine.monster.targetPos = curFood.gameObject.transform.position;
     }
 

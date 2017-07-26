@@ -5,6 +5,7 @@ using UnityEngine;
 public class Food : MonoBehaviour {
 
     public ItemInfo foodItem;
+    public bool dragged;
 
     public void Eat()
     {

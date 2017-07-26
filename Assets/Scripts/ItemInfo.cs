@@ -11,6 +11,9 @@ public class ItemInfo : ScriptableObject
 
     public int cost;
 
+    public bool food;
+    public bool interactable;
+
     public Sprite image;
 
     [TextArea]

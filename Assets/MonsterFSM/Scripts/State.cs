@@ -36,7 +36,21 @@ public class State : ScriptableObject {
     {
         for (int i = 0; i < transitions.Length; i++)
         {
-            bool decision = transitions[i].decision.Decide(stateMachine);
+            bool decision = true;
+
+            foreach(Decision d in transitions[i].decisions)
+            {
+
+                if(d.Decide(stateMachine))
+                {
+
+                }
+                else
+                {
+                    decision = false;
+                }
+
+            }
 
             if(decision == true)
             {

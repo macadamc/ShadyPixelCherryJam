@@ -46,7 +46,6 @@ public class InventoryItem : EventTrigger {
     {
         Vector3 newVector;
         RectTransformUtility.ScreenPointToWorldPointInRectangle(canvas, transform.position, Camera.main, out newVector);
-
         if (inGameObject.placement == PlaceableObject.Placement.Floor)
         {
             //floor check
